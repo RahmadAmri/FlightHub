@@ -1,0 +1,109 @@
+npx sequelize db:create
+
+npx sequelize model:create --name User --attributes email:string,password:string,role:string
+npx sequelize model:create --name Profile --attributes name:string,birthDate:date,phoneNumber:string,UserId:integer // ada 1 fk - UserId - dan identityNumber sengaja dihilangkan
+
+npx sequelize model:create --name Category --attributes nameCategory:string,price:integer,description:string
+npx sequelize model:create --name Travel --attributes nameTravel:string,imgUrl:string,schedule:date,capacity:integer,CategoryId:integer // ada 1 fk - CategoryId
+
+npx sequelize model:create --name Transaction --attributes schedule:date,totalPrice:integer,quantityOrder:integer,TravelId:integer,UserId:integer // ada 2 fk - TravelId & UserId
+
+
+// Code untuk add new migrate, menambahkan fk pada masing2 table
+// npx sequelize migration:create --name addNewColumnIdentityNumber
+
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add altering commands here.
+     *
+     * Example:
+     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+     */
+    await queryInterface.addColumn('Profiles','identityNumber',{
+      type : Sequelize.STRING
+    })
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
+    await queryInterface.removeColumn('Profiles','identityNumber')
+  }
+};
+
+// Code untuk add new seeders, untuk seeding initial data
+// npx sequelize seed:create --name insertData
+
+'use strict';
+const bcryptjs = require('bcryptjs')
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add seed commands here.
+     *
+     * Example:
+     * await queryInterface.bulkInsert('People', [{
+     *   name: 'John Doe',
+     *   isBetaMember: false
+     * }], {});
+    */
+  let dataUsers = require('../data/users.json').map(el => {
+    delete el.id
+
+    let salt = bcryptjs.genSaltSync(10);
+    el.password = bcryptjs.hashSync(el.password, salt);
+
+    el.createdAt = el.updatedAt = new Date()
+    return el
+  })
+  let dataCategories = require('../data/categories.json').map(el => {
+    delete el.id
+    el.createdAt = el.updatedAt = new Date()
+    return el
+  })
+  let dataProfiles = require('../data/profiles.json').map(el => {
+    delete el.id
+    el.createdAt = el.updatedAt = new Date()
+    return el
+  })
+  let dataTravels = require('../data/travels.json').map(el => {
+    delete el.id
+    el.createdAt = el.updatedAt = new Date()
+    return el
+  })
+  let dataTransactions = require('../data/transactions.json').map(el => {
+    delete el.id
+    el.createdAt = el.updatedAt = new Date()
+    return el
+  })
+   await queryInterface.bulkInsert('Users',dataUsers)
+   await queryInterface.bulkInsert('Categories',dataCategories)
+   await queryInterface.bulkInsert('Profiles',dataProfiles)
+   await queryInterface.bulkInsert('Travels',dataTravels)
+   await queryInterface.bulkInsert('Transactions',dataTransactions)
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+    await queryInterface.bulkDelete('Profiles',null)
+    await queryInterface.bulkDelete('Transactions',null)
+    await queryInterface.bulkDelete('Travels',null)
+    await queryInterface.bulkDelete('Users',null)
+    await queryInterface.bulkDelete('Categories',null)
+  }
+};

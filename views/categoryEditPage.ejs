@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <%- include('_nav') %>
+
+    <div class="container">
+        <form method="post" action="/categories/list/<%= dataCategoryById.id %>/edit">
+
+
+            <div class="mb-3">
+                <label class="form-label">Name of Category</label>
+                <input name="nameCategory" type="text" class="form-control" value="<%= dataCategoryById.nameCategory %>">
+                <% if (error) { %>
+                    <% error.forEach(el => { %>
+                        <% if (el.includes('Name of Category') ) { %>
+                            <p style="color: red;"><%= el %></p>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price of Category</label>
+                <input name="price" type="number" class="form-control" value="<%= dataCategoryById.price %>">
+                <% if (error) { %>
+                    <% error.forEach(el => { %>
+                        <% if (el.includes('Price') ) { %>
+                            <p style="color: red;"><%= el %></p>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input name="description" type="text" class="form-control" value="<%= dataCategoryById.description %>">
+                <% if (error) { %>
+                    <% error.forEach(el => { %>
+                        <% if (el.includes('Description') ) { %>
+                            <p style="color: red;"><%= el %></p>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+    <%- include('_bootstrap') %>
+</body>
+</html>

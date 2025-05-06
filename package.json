@@ -1,0 +1,25 @@
+{
+  "name": "travelkuy",
+  "version": "1.0.0",
+  "description": "1. Admin dapat melakukan login dan logout.\r 2. Admin dapat CRUD **Schedule** travel.\r 3. Admin dapat CRUD **Categories** travel.\r 4. Admin dapat RUD **Transaction** travel.\r 5. Admin dapat RUD **Users & Profiles**\r 6. Admin dapat melihat grafik perkembangan data transaksi. //optional",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "pdf-node": "^1.0.1",
+    "pg": "^8.14.1",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "sequelize-cli": "^6.6.2"
+  }
+}

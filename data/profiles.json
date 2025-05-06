@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Kym Pagitt",
+    "birthDate": "2024-06-05",
+    "identityNumber": "011301947",
+    "phoneNumber": "5979731373",
+    "UserId": 1
+  },
+  {
+    "id": 2,
+    "name": "Fanchette Bubeer",
+    "birthDate": "2024-08-01",
+    "identityNumber": "053100559",
+    "phoneNumber": "1434505611",
+    "UserId": 2
+  },
+  {
+    "id": 3,
+    "name": "Ricard Ferrettini",
+    "birthDate": "2024-07-11",
+    "identityNumber": "062006495",
+    "phoneNumber": "8195107289",
+    "UserId": 3
+  },
+  {
+    "id": 4,
+    "name": "Kipp Gaskin",
+    "birthDate": "2024-10-11",
+    "identityNumber": "031300834",
+    "phoneNumber": "4026454591",
+    "UserId": 4
+  },
+  {
+    "id": 5,
+    "name": "Lyndell Youle",
+    "birthDate": "2024-09-05",
+    "identityNumber": "271972381",
+    "phoneNumber": "8732796672",
+    "UserId": 5
+  },
+  {
+    "id": 6,
+    "name": "Doni Agung",
+    "birthDate": "2024-05-11",
+    "identityNumber": "271972382",
+    "phoneNumber": "08732796672",
+    "UserId": 6
+  }
+]

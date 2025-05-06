@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Schedule</title>
+    <style>
+        .welcome-section {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .search-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        .search-box {
+            border-radius: 25px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            border-color: #6B73FF;
+            box-shadow: 0 0 0 0.2rem rgba(107, 115, 255, 0.25);
+        }
+        .search-btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+        }
+        .card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .card-title {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .card-text {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .price-tag {
+            background: #6B73FF;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        .book-btn {
+            width: 100%;
+            border-radius: 25px;
+            padding: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-footer {
+            background: transparent;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <%- include('_nav') %>
+
+    <div class="container">
+        <% if (name) { %>
+        <div class="welcome-section text-center">
+            <h1 class="display-4">Welcome, <%= name %>!</h1>
+            <a href="/schedules/<%= userId %>/convert" class="btn btn-light btn-lg mt-3">Download Transaction</a>
+        </div>
+        <% } %>
+
+        <div class="search-section">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <% if (!userId) { %>
+                        <form method="get" action="/schedules">
+                    <% } else { %>
+                        <form method="get" action="/schedules/<%= userId %>">
+                    <% } %>
+                        <div class="input-group">
+                            <input name="airlineName" type="text" class="form-control search-box" placeholder="Search for travel destinations...">
+                            <button class="btn btn-success search-btn">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <% if (role === 'admin') { %>
+                <div class="text-center mt-3">
+                    <a href="/schedules/add" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add New Schedule
+                    </a>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <% dataTravelCategory.forEach(el => { %>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="<%= el.imgUrl %>" class="card-img-top" alt="<%= el.airlineName %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= el.airlineName %></h5>
+                        <div class="price-tag">
+                            <%= el.Category.newPrice %>
+                        </div>
+                        <h6 class="card-subtitle mb-2">Schedule: <%= el.formatDate(el.schedule).resShow %></h6>
+                        <h6 class="card-subtitle mb-2">Category: <%= el.Category.nameCategory %></h6>
+                        <p class="card-text"><%= el.Category.description %></p>
+                        <p class="card-subtitle mb-3">Available Seats: <%= el.capacity %></p>
+                        <% if (userId) { %>
+                            <a href="/schedules/<%= userId %>/book/<%= el.id %>" class="btn btn-primary book-btn">Book Now</a>
+                        <% } else { %>
+                            <a href="/login" class="btn btn-primary book-btn">Login to Book</a>
+                        <% } %>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small class="text-muted">Last updated: <%= el.formatDate(el.updatedAt).resShow %></small>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <%- include('_bootstrap') %>
+</body>
+</html>

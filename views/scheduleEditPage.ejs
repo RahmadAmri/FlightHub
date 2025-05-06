@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <%- include('_nav') %>
+
+    <div class="container">
+        <form method="post" action="/schedules/list/<%= dataTravelCategoryById.id %>/edit">
+            <div style="margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Name of Flight</label>
+                            <input name="nameTravel" type="text" class="form-control" value="<%= dataTravelCategoryById.airlineName %>">
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Name of Airline') ) { %>
+                                        <p style="color: red;"><%= el %></p>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Image Url</label>
+                            <input name="imgUrl" type="text" class="form-control" value="<%= dataTravelCategoryById.imgUrl %>">
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Image Url') ) { %>
+                                        <p style="color: red;"><%= el %></p>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Category</label>
+                        <select name = "CategoryId" class="form-select" aria-label="Default select example">
+                            <% dataCategory.forEach(el => { %>
+                                <option <%= dataTravelCategoryById.Category.nameCategory === el.nameCategory ? "selected" : "" %> value="<%= el.id %>"><%= el.nameCategory %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Capacity</label>
+                            <input name="capacity" type="number" class="form-control" value="<%= dataTravelCategoryById.capacity %>">
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Capacity') ) { %>
+                                        <p style="color: red;"><%= el %></p>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Schedule Date</label>
+                            <input name="schedule" type="datetime-local" class="form-control" value="<%= dataTravelCategoryById.formatDate(dataTravelCategoryById.schedule).resShowEdit %>">
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Schedule') ) { %>
+                                        <p style="color: red;"><%= el %></p>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary">Update</button>
+        </form>
+    </div>
+    
+    <%- include('_bootstrap') %>
+</body>
+</html>

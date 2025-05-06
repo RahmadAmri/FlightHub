@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedules List</title>
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .error-message {
+            background-color: #ff5b5b;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .category-btn {
+            background: #f8f9fa;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .category-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .custom-table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .custom-table thead th {
+            background: #f8f9fa;
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        .custom-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        .custom-table tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: scale(1.01);
+        }
+        .custom-table td, .custom-table th {
+            padding: 1rem;
+            border: none;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .status-active {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-inactive {
+            background-color: #6c757d;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+        .edit-btn {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <%- include('_nav') %>
+
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Flight Schedules Management</h1>
+        </div>
+
+        <% if (error) { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="/categories/list" class="category-btn">
+                <i class="fas fa-list"></i> Manage Categories
+            </a>
+        </div>
+
+        <div class="table-container">
+            <table class="table custom-table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Airline Name</th>
+                        <th scope="col">Schedule</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Capacity</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% dataTravelCategory.forEach((el,idx) => { %>
+                        <tr>
+                            <th scope="row"><%= idx+1 %></th>
+                            <td><%= el.Category.nameCategory %></td>
+                            <td><%= el.airlineName %></td>
+                            <td><%= el.formatDate(el.schedule).resShow %></td>
+                            <td><%= el.Category.newPrice %></td>
+                            <td><%= el.capacity %></td>
+                            <td>
+                                <span class="status-badge <%= el.travelStatus === 'Active' ? 'status-active' : 'status-inactive' %>">
+                                    <%= el.travelStatus %>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="/schedules/list/<%= el.id %>/edit" class="action-btn edit-btn">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a href="/schedules/list/<%= el.id %>/delete" class="action-btn delete-btn">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <%- include('_bootstrap') %>
+</body>
+</html>

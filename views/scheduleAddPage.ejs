@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Schedule</title>
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <%- include('_nav') %>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Add New Flight Schedule</h1>
+        </div>
+
+        <div class="form-container">
+            <form method="post" action="/schedules/add">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Name of Flight</label>
+                            <div class="input-group">
+                                <input name="airlineName" type="text" class="form-control" placeholder="Enter flight name">
+                                <i class="fas fa-plane input-icon"></i>
+                            </div>
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Name of Airline')) { %>
+                                        <div class="error-message">
+                                            <i class="fas fa-exclamation-circle"></i> <%= el %>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Image URL</label>
+                            <div class="input-group">
+                                <input name="imgUrl" type="text" class="form-control" placeholder="Enter image URL">
+                                <i class="fas fa-image input-icon"></i>
+                            </div>
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Image Url')) { %>
+                                        <div class="error-message">
+                                            <i class="fas fa-exclamation-circle"></i> <%= el %>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <div class="input-group">
+                                <select name="CategoryId" class="form-select">
+                                    <% dataCategory.forEach(el => { %>
+                                        <option value="<%= el.id %>"><%= el.nameCategory %></option>
+                                    <% }) %>
+                                </select>
+                                <i class="fas fa-tag input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Capacity</label>
+                            <div class="input-group">
+                                <input name="capacity" type="number" class="form-control" placeholder="Enter capacity">
+                                <i class="fas fa-users input-icon"></i>
+                            </div>
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Capacity')) { %>
+                                        <div class="error-message">
+                                            <i class="fas fa-exclamation-circle"></i> <%= el %>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Schedule Date</label>
+                            <div class="input-group">
+                                <input name="schedule" type="datetime-local" class="form-control">
+                                <i class="fas fa-calendar input-icon"></i>
+                            </div>
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Schedule')) { %>
+                                        <div class="error-message">
+                                            <i class="fas fa-exclamation-circle"></i> <%= el %>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Create Schedule
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <%- include('_bootstrap') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html>

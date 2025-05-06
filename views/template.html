@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <mate charest="utf-8" />
+    <title>Hello world!</title>
+  </head>
+  <body>
+    <h1>Transaction List</h1>
+    <ul>
+      {{#each users}}
+      <li>Id Transaction: {{this.idTransaction}}</li>
+      <li>Quantity Order: {{this.quantityOrder}}</li>
+      <li>Total Price: {{this.totalPrice}}</li>
+      <li>Email: {{this.email}}</li>
+      <li>Travel Name: {{this.airlineName}}</li>
+      <li>Schedule : {{this.schedule}}</li>
+      <br />
+      <p>=======================================================</p>
+      {{/each}}
+    </ul>
+  </body>
+</html>

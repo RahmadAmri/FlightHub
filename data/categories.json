@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "nameCategory": "Economy Class",
+        "price": 3000000,
+        "description": "Economy class: This class is the cheapest option but is also the least flexible. Economy class seats are standard and there is limited service."
+    },
+    {
+        "id": 2,
+        "nameCategory": "Business Class",
+        "price": 8000000,
+        "description": "Business class: You can expect better service, lie-flat seats and excellent food when you travel business class."
+    },
+    {
+        "id": 3,
+        "nameCategory": "First Class",
+        "price": 10000000,
+        "description": "First class: The epitome of luxurious travel, first class is the cream of the crop when it comes to travel. You can expect chef-like dining and more attentive care."
+    }
+]

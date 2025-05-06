@@ -1,0 +1,43 @@
+[
+    {
+        "id": 1,
+        "schedule": "2025-09-10T08:30:00",
+        "totalPrice": 6000000,
+        "quantityOrder" : 2,
+        "UserId" : 6,
+        "TravelId" : 1
+    },
+    {
+        "id": 2,
+        "schedule": "2025-09-10T20:00:00",
+        "totalPrice": 9000000,
+        "quantityOrder" : 3,
+        "UserId" : 4,
+        "TravelId" : 2
+    },
+    {
+        "id": 3,
+        "schedule": "2025-09-10T20:00:00",
+        "totalPrice": 6000000,
+        "quantityOrder" : 2,
+        "UserId" : 3,
+        "TravelId" : 3
+    },
+    {
+        "id": 4,
+        "schedule": "2025-09-11T09:30:00",
+        "totalPrice": 16000000,
+        "quantityOrder" : 2,
+        "UserId" : 5,
+        "TravelId" : 4
+    },
+    
+    {
+        "id": 5,
+        "schedule": "2025-09-11T09:30:00",
+        "totalPrice": 30000000,
+        "quantityOrder": 2,
+        "UserId": 2,
+        "TravelId": 4
+    }
+]

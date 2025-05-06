@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "airlineName": "Turkish Airlines",
+        "imgUrl": "https://airinsight.com/wp-content/uploads/2022/08/1659313917439.jpg",
+        "schedule": "2025-09-10T08:30:00",
+        "capacity": 10,
+        "CategoryId": 1
+    },
+    {
+        "id": 2,
+        "airlineName": "Singapore Airlines",
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/20230811_Airbus_A380-841_of_Singapore_Airlines_%289V-SKV%29_at_SYD_04.jpg",
+        "schedule": "2025-09-10T20:00:00",
+        "capacity": 10,
+        "CategoryId": 2
+    },
+    {
+        "id": 3,
+        "airlineName": "Fly Emirates",
+        "imgUrl": "https://media.cntraveler.com/photos/5e0fae0f388fc7000875c3d2/16:9/w_2991,h_1682,c_limit/EmiratesFlightSale-2020-GettyImages-545392896.jpg",
+        "schedule": "2025-09-11T09:30:00",
+        "capacity": 10,
+        "CategoryId": 3
+    },
+    
+    {
+        "id": 4,
+        "airlineName": "Etihad Airways",
+        "imgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/02/ee/ff/etihad-airways.jpg?w=1100&h=-1&s=1",
+        "schedule": "2025-09-11T09:30:00",
+        "capacity": 13,
+        "CategoryId": 3
+    }
+]

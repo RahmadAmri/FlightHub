@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TravelKuy</title>
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: 500;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #D32F2F;
+            box-shadow: 0 0 0 0.2rem rgba(211, 47, 47, 0.25);
+        }
+        .error-message {
+            color: #D32F2F;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .btn-primary {
+            background: #D32F2F;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #B71C1C;
+            transform: translateY(-2px);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <%- include('_nav') %>
+
+    <div class="container">
+        <div class="login-container">
+            <h2 class="text-center mb-4">Welcome Back</h2>
+            <% if (error) { %>
+                <% if (error.name === 'errorLogin') { %>
+                    <div class="error-message text-center mb-3"><%= error.msg %></div>
+                <% } %>
+            <% } %>
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Enter your email">
+                    <% if (error) { %>
+                        <% if (error.name === 'errorEmail') { %>
+                            <div class="error-message"><%= error.msg %></div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Enter your password">
+                    <% if (error) { %>
+                        <% if (error.name === 'errorPassword') { %>
+                            <div class="error-message"><%= error.msg %></div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <button class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('_bootstrap') %>
+</body>
+</html>
