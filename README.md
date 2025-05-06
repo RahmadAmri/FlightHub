@@ -1,4 +1,4 @@
-# TravelKuy
+# FlightHub
 
 ## Admin Features
 
