@@ -3,52 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Category | FlightHub</title>
+    <style>
+        .add-category-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .page-title {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #34495e;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .error-message i {
+            font-size: 1rem;
+        }
+        .btn-submit {
+            background: #2ecc71;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .btn-submit:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #ddd;
+        }
+    </style>
 </head>
-<body>
-
+<body class="bg-light">
     <%- include('_nav') %>
 
-    <div class="container">
+    <div class="add-category-container">
+        <h2 class="page-title">Add New Category</h2>
         <form method="post" action="/categories/add">
-            <div class="mb-3">
+            <div class="form-group">
                 <label class="form-label">Name of Category</label>
-                <input name="nameCategory" type="text" class="form-control">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                    <input name="nameCategory" type="text" class="form-control" placeholder="Enter category name">
+                </div>
                 <% if (error) { %>
                     <% error.forEach(el => { %>
                         <% if (el.includes('Name of Category') ) { %>
-                            <p style="color: red;"><%= el %></p>
-                        <% } %>
-                    <% }) %>
-                <% } %>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Price of Category</label>
-                <input name="price" type="number" class="form-control">
-                <% if (error) { %>
-                    <% error.forEach(el => { %>
-                        <% if (el.includes('Price') ) { %>
-                            <p style="color: red;"><%= el %></p>
-                        <% } %>
-                    <% }) %>
-                <% } %>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <input name="description" type="text" class="form-control">
-                <% if (error) { %>
-                    <% error.forEach(el => { %>
-                        <% if (el.includes('Description') ) { %>
-                            <p style="color: red;"><%= el %></p>
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <%= el %>
+                            </div>
                         <% } %>
                     <% }) %>
                 <% } %>
             </div>
 
-            <button class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label class="form-label">Price of Category</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                    <input name="price" type="number" class="form-control" placeholder="Enter price">
+                </div>
+                <% if (error) { %>
+                    <% error.forEach(el => { %>
+                        <% if (el.includes('Price') ) { %>
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <%= el %>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                    <input name="description" type="text" class="form-control" placeholder="Enter description">
+                </div>
+                <% if (error) { %>
+                    <% error.forEach(el => { %>
+                        <% if (el.includes('Description') ) { %>
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <%= el %>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-submit">
+                <i class="fas fa-plus-circle me-2"></i>Add Category
+            </button>
         </form>
     </div>
     
     <%- include('_bootstrap') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </body>
 </html>

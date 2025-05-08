@@ -235,6 +235,10 @@ module.exports = (sequelize, DataTypes) => {
         max : {
           args : 14,
           msg : 'Please fill under 15 of Capacity'
+        },
+        min: {
+          args: 1,
+          msg: 'Please fill above 0 Capacity'
         }
       }
     },

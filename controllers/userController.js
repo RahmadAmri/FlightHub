@@ -112,7 +112,6 @@ class userController {
                 })
             }
             res.redirect(`/schedules/${req.params.userId}/book/${req.params.travelId}?error=${error}`)
-            // res.send(error)
         }
     }
     static async convertPdf(req, res) {

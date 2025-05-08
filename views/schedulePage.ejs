@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Schedule</title>
+    <title>Flight Schedule</title>
     <style>
         .welcome-section {
             background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
@@ -61,7 +61,7 @@
             line-height: 1.6;
         }
         .price-tag {
-            background: #6B73FF;
+            background: #000000;
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
@@ -103,7 +103,7 @@
                         <form method="get" action="/schedules/<%= userId %>">
                     <% } %>
                         <div class="input-group">
-                            <input name="airlineName" type="text" class="form-control search-box" placeholder="Search for travel destinations...">
+                            <input name="airlineName" type="text" class="form-control search-box" placeholder="Search for flight...">
                             <button class="btn btn-success search-btn">Search</button>
                         </div>
                     </form>
@@ -111,39 +111,48 @@
             </div>
             <% if (role === 'admin') { %>
                 <div class="text-center mt-3">
-                    <a href="/schedules/add" class="btn btn-primary">
+                    <a href="/schedules/add" class="btn btn-warning">
                         <i class="fas fa-plus"></i> Add New Schedule
                     </a>
                 </div>
             <% } %>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <% dataTravelCategory.forEach(el => { %>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="<%= el.imgUrl %>" class="card-img-top" alt="<%= el.airlineName %>">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= el.airlineName %></h5>
-                        <div class="price-tag">
-                            <%= el.Category.newPrice %>
-                        </div>
-                        <h6 class="card-subtitle mb-2">Schedule: <%= el.formatDate(el.schedule).resShow %></h6>
-                        <h6 class="card-subtitle mb-2">Category: <%= el.Category.nameCategory %></h6>
-                        <p class="card-text"><%= el.Category.description %></p>
-                        <p class="card-subtitle mb-3">Available Seats: <%= el.capacity %></p>
-                        <% if (userId) { %>
-                            <a href="/schedules/<%= userId %>/book/<%= el.id %>" class="btn btn-primary book-btn">Book Now</a>
-                        <% } else { %>
-                            <a href="/login" class="btn btn-primary book-btn">Login to Book</a>
-                        <% } %>
-                    </div>
-                    <div class="card-footer text-center">
-                        <small class="text-muted">Last updated: <%= el.formatDate(el.updatedAt).resShow %></small>
+        <div style="display: flex; justify-content: center;" class="row row-cols-1 row-cols-md-3 g-4">
+            <% if (dataTravelCategory.length === 0) { %>
+                <div class="col-12 text-center mt-4">
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">No Results Found</h4>
+                        <p>No airline name matches your search criteria</p>
                     </div>
                 </div>
-            </div>
-            <% }) %>
+            <% } else { %>
+                <% dataTravelCategory.forEach(el => { %>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="<%= el.imgUrl %>" class="card-img-top" alt="<%= el.airlineName %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= el.airlineName %></h5>
+                            <div class="price-tag">
+                                <%= el.Category.newPrice %>
+                            </div>
+                            <h6 class="card-subtitle mb-2">Schedule: <%= el.formatDate(el.schedule).resShow %></h6>
+                            <h6 class="card-subtitle mb-2">Category: <%= el.Category.nameCategory %></h6>
+                            <p class="card-text"><%= el.Category.description %></p>
+                            <p class="card-subtitle mb-3">Available Seats: <%= el.capacity %></p>
+                            <% if (userId) { %>
+                                <a href="/schedules/<%= userId %>/book/<%= el.id %>" class="btn btn-primary book-btn">Book Now</a>
+                            <% } else { %>
+                                <a href="/login" class="btn btn-primary book-btn">Login to Book</a>
+                            <% } %>
+                        </div>
+                        <div class="card-footer text-center">
+                            <small class="text-muted">Last updated: <%= el.formatDate(el.updatedAt).resShow %></small>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            <% } %>
         </div>
     </div>
 

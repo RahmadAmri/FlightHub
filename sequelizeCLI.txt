@@ -10,7 +10,7 @@ npx sequelize model:create --name Transaction --attributes schedule:date,totalPr
 
 
 // Code untuk add new migrate, menambahkan fk pada masing2 table
-// npx sequelize migration:create --name addNewColumnIdentityNumber
+// npx sequelize migration:create --name addManyToMany
 
 'use strict';
 
