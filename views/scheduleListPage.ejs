@@ -14,7 +14,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .error-message {
-            background-color: #ff5b5b;
+            background-color: #ff0000;
             color: white;
             padding: 1rem;
             border-radius: 10px;
@@ -142,9 +142,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% dataTravelCategory.forEach((el,idx) => { %>
+                    <% dataTravelCategory.forEach((el,index) => { %>
                         <tr>
-                            <th scope="row"><%= idx+1 %></th>
+                            <th scope="row"><%= index+1 %></th>
                             <td><%= el.Category.nameCategory %></td>
                             <td><%= el.airlineName %></td>
                             <td><%= el.formatDate(el.schedule).resShow %></td>

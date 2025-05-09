@@ -145,7 +145,7 @@ class Controller {
 
     static async postAddCategory(req, res) {
         try {
-            const data = await Category.createCategory(req.body)
+             await Category.createCategory(req.body)
             res.redirect('/categories/list')
         } catch (error) {
             if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {

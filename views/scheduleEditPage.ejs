@@ -3,89 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Flight Schedule | FlightHub</title>
+    <style>
+        .edit-schedule-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .page-title {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #34495e;
+            margin-bottom: 0.5rem;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .error-message i {
+            font-size: 1rem;
+        }
+        .btn-update {
+            background: #3498db;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .btn-update:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #ddd;
+        }
+    </style>
 </head>
-<body>
-
+<body class="bg-light">
     <%- include('_nav') %>
 
-    <div class="container">
+    <div class="edit-schedule-container">
+        <h2 class="page-title">Edit Flight Schedule</h2>
         <form method="post" action="/schedules/list/<%= dataTravelCategoryById.id %>/edit">
-            <div style="margin-bottom: 20px;">
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label">Name of Flight</label>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Name of Flight</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-plane"></i></span>
                             <input name="nameTravel" type="text" class="form-control" value="<%= dataTravelCategoryById.airlineName %>">
-                            <% if (error) { %>
-                                <% error.forEach(el => { %>
-                                    <% if (el.includes('Name of Airline') ) { %>
-                                        <p style="color: red;"><%= el %></p>
-                                    <% } %>
-                                <% }) %>
-                            <% } %>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label">Image Url</label>
-                            <input name="imgUrl" type="text" class="form-control" value="<%= dataTravelCategoryById.imgUrl %>">
-                            <% if (error) { %>
-                                <% error.forEach(el => { %>
-                                    <% if (el.includes('Image Url') ) { %>
-                                        <p style="color: red;"><%= el %></p>
-                                    <% } %>
-                                <% }) %>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label class="form-label">Category</label>
-                        <select name = "CategoryId" class="form-select" aria-label="Default select example">
-                            <% dataCategory.forEach(el => { %>
-                                <option <%= dataTravelCategoryById.Category.nameCategory === el.nameCategory ? "selected" : "" %> value="<%= el.id %>"><%= el.nameCategory %></option>
+                        <% if (error) { %>
+                            <% error.forEach(el => { %>
+                                <% if (el.includes('Name of Airline') ) { %>
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <%= el %>
+                                    </div>
+                                <% } %>
                             <% }) %>
-                        </select>
+                        <% } %>
                     </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label">Capacity</label>
-                            <input name="capacity" type="number" class="form-control" value="<%= dataTravelCategoryById.capacity %>">
-                            <% if (error) { %>
-                                <% error.forEach(el => { %>
-                                    <% if (el.includes('Capacity') ) { %>
-                                        <p style="color: red;"><%= el %></p>
-                                    <% } %>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Image URL</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                            <input name="imgUrl" type="text" class="form-control" value="<%= dataTravelCategoryById.imgUrl %>">
+                        </div>
+                        <% if (error) { %>
+                            <% error.forEach(el => { %>
+                                <% if (el.includes('Image Url') ) { %>
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <%= el %>
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                            <select name="CategoryId" class="form-select">
+                                <% dataCategory.forEach(el => { %>
+                                    <option <%= dataTravelCategoryById.Category.nameCategory === el.nameCategory ? "selected" : "" %> value="<%= el.id %>"><%= el.nameCategory %></option>
                                 <% }) %>
-                            <% } %>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label">Schedule Date</label>
-                            <input name="schedule" type="datetime-local" class="form-control" value="<%= dataTravelCategoryById.formatDate(dataTravelCategoryById.schedule).resShowEdit %>">
-                            <% if (error) { %>
-                                <% error.forEach(el => { %>
-                                    <% if (el.includes('Schedule') ) { %>
-                                        <p style="color: red;"><%= el %></p>
-                                    <% } %>
-                                <% }) %>
-                            <% } %>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Capacity</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-users"></i></span>
+                            <input name="capacity" type="number" class="form-control" value="<%= dataTravelCategoryById.capacity %>">
                         </div>
+                        <% if (error) { %>
+                            <% error.forEach(el => { %>
+                                <% if (el.includes('Capacity') ) { %>
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <%= el %>
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
                     </div>
-                    <div class="col" >
-                        
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Schedule Date</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            <input name="schedule" type="datetime-local" class="form-control" value="<%= dataTravelCategoryById.formatDate(dataTravelCategoryById.schedule).resShowEdit %>">
+                        </div>
+                        <% if (error) { %>
+                            <% error.forEach(el => { %>
+                                <% if (el.includes('Schedule') ) { %>
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <%= el %>
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary btn-update">
+                <i class="fas fa-save me-2"></i>Update Schedule
+            </button>
         </form>
     </div>
     
     <%- include('_bootstrap') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </body>
 </html>

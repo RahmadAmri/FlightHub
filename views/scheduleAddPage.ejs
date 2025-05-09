@@ -126,7 +126,7 @@
                             </div>
                             <% if (error) { %>
                                 <% error.forEach(el => { %>
-                                    <% if (el.includes('Name of Airline')) { %>
+                                    <% if (el.includes('Please fill Name of Airline')) { %>
                                         <div class="error-message">
                                             <i class="fas fa-exclamation-circle"></i> <%= el %>
                                         </div>
@@ -160,12 +160,24 @@
                             <label class="form-label">Category</label>
                             <div class="input-group">
                                 <select name="CategoryId" class="form-select">
+                                    <option value="">Choose Category</option>
                                     <% dataCategory.forEach(el => { %>
-                                        <option value="<%= el.id %>"><%= el.nameCategory %></option>
+                                        <option value="<%= el.id %>">
+                                            <%= el.nameCategory %>
+                                        </option>
                                     <% }) %>
                                 </select>
                                 <i class="fas fa-tag input-icon"></i>
                             </div>
+                            <% if (error) { %>
+                                <% error.forEach(el => { %>
+                                    <% if (el.includes('Please select Category')) { %>
+                                        <div class="error-message">
+                                            <i class="fas fa-exclamation-circle"></i> <%= el %>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
                         </div>
                     </div>
 

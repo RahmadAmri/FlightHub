@@ -15,4 +15,4 @@ const isAdmin = function (req,res,next) {
     }
 }
 
-module.exports = {isLoggedIn,isAdmin}
+module.exports = { isLoggedIn,isAdmin }

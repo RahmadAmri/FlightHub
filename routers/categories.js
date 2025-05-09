@@ -1,7 +1,7 @@
 const express = require('express')
 const routerCategories = express.Router()
 const Controller = require('../controllers/controller')
-const {isLoggedIn,isAdmin} = require('../middlewares/auth')
+const { isLoggedIn,isAdmin } = require('../middlewares/auth')
 
 
 //! Categories

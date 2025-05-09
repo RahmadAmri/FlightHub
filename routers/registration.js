@@ -6,4 +6,5 @@ const userController = require('../controllers/userController')
 routerRegistration.get('/',userController.showRegistration)
 routerRegistration.post('/',userController.postRegistration)
 
+
 module.exports = routerRegistration
